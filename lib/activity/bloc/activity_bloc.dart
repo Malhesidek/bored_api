@@ -32,15 +32,12 @@ class ActivityBloc extends Bloc<ActivityEvent, ActivityState> {
   _onFetchActivityByQuery(
       _FetchActivityByQuery event, Emitter<ActivityState> emit) async {
     emit(_Loading());
-    if (event.size == null || event.size == 0) {
-      emit(_Initial());
-      return;
-    }
     final List<ActivityModel> activities = [];
-    for (int i = 0; i < event.size!; i++) {
+    for (int i = 0; i < 10; i++) {
       try {
         final activity = await activityRepository.getActivityByQuery(
             type: event.type, participants: event.participants);
+        if (activities.contains(activity)) continue;
         activities.add(activity);
       } on Exception catch (e) {
         log("Error: $e");

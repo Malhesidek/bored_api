@@ -19,22 +19,20 @@ mixin _$ActivityEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() fetchRandomActivity,
-    required TResult Function(String? type, int? participants, int? size)
+    required TResult Function(String? type, int? participants)
         fetchActivityByQuery,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? fetchRandomActivity,
-    TResult? Function(String? type, int? participants, int? size)?
-        fetchActivityByQuery,
+    TResult? Function(String? type, int? participants)? fetchActivityByQuery,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetchRandomActivity,
-    TResult Function(String? type, int? participants, int? size)?
-        fetchActivityByQuery,
+    TResult Function(String? type, int? participants)? fetchActivityByQuery,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -117,7 +115,7 @@ class _$FetchRandomActivityImpl implements _FetchRandomActivity {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() fetchRandomActivity,
-    required TResult Function(String? type, int? participants, int? size)
+    required TResult Function(String? type, int? participants)
         fetchActivityByQuery,
   }) {
     return fetchRandomActivity();
@@ -127,8 +125,7 @@ class _$FetchRandomActivityImpl implements _FetchRandomActivity {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? fetchRandomActivity,
-    TResult? Function(String? type, int? participants, int? size)?
-        fetchActivityByQuery,
+    TResult? Function(String? type, int? participants)? fetchActivityByQuery,
   }) {
     return fetchRandomActivity?.call();
   }
@@ -137,8 +134,7 @@ class _$FetchRandomActivityImpl implements _FetchRandomActivity {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetchRandomActivity,
-    TResult Function(String? type, int? participants, int? size)?
-        fetchActivityByQuery,
+    TResult Function(String? type, int? participants)? fetchActivityByQuery,
     required TResult orElse(),
   }) {
     if (fetchRandomActivity != null) {
@@ -189,7 +185,7 @@ abstract class _$$FetchActivityByQueryImplCopyWith<$Res> {
           $Res Function(_$FetchActivityByQueryImpl) then) =
       __$$FetchActivityByQueryImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String? type, int? participants, int? size});
+  $Res call({String? type, int? participants});
 }
 
 /// @nodoc
@@ -205,7 +201,6 @@ class __$$FetchActivityByQueryImplCopyWithImpl<$Res>
   $Res call({
     Object? type = freezed,
     Object? participants = freezed,
-    Object? size = freezed,
   }) {
     return _then(_$FetchActivityByQueryImpl(
       type: freezed == type
@@ -216,10 +211,6 @@ class __$$FetchActivityByQueryImplCopyWithImpl<$Res>
           ? _value.participants
           : participants // ignore: cast_nullable_to_non_nullable
               as int?,
-      size: freezed == size
-          ? _value.size
-          : size // ignore: cast_nullable_to_non_nullable
-              as int?,
     ));
   }
 }
@@ -228,18 +219,16 @@ class __$$FetchActivityByQueryImplCopyWithImpl<$Res>
 
 class _$FetchActivityByQueryImpl implements _FetchActivityByQuery {
   const _$FetchActivityByQueryImpl(
-      {required this.type, required this.participants, required this.size});
+      {required this.type, required this.participants});
 
   @override
   final String? type;
   @override
   final int? participants;
-  @override
-  final int? size;
 
   @override
   String toString() {
-    return 'ActivityEvent.fetchActivityByQuery(type: $type, participants: $participants, size: $size)';
+    return 'ActivityEvent.fetchActivityByQuery(type: $type, participants: $participants)';
   }
 
   @override
@@ -249,12 +238,11 @@ class _$FetchActivityByQueryImpl implements _FetchActivityByQuery {
             other is _$FetchActivityByQueryImpl &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.participants, participants) ||
-                other.participants == participants) &&
-            (identical(other.size, size) || other.size == size));
+                other.participants == participants));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, type, participants, size);
+  int get hashCode => Object.hash(runtimeType, type, participants);
 
   @JsonKey(ignore: true)
   @override
@@ -268,32 +256,30 @@ class _$FetchActivityByQueryImpl implements _FetchActivityByQuery {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() fetchRandomActivity,
-    required TResult Function(String? type, int? participants, int? size)
+    required TResult Function(String? type, int? participants)
         fetchActivityByQuery,
   }) {
-    return fetchActivityByQuery(type, participants, size);
+    return fetchActivityByQuery(type, participants);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? fetchRandomActivity,
-    TResult? Function(String? type, int? participants, int? size)?
-        fetchActivityByQuery,
+    TResult? Function(String? type, int? participants)? fetchActivityByQuery,
   }) {
-    return fetchActivityByQuery?.call(type, participants, size);
+    return fetchActivityByQuery?.call(type, participants);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetchRandomActivity,
-    TResult Function(String? type, int? participants, int? size)?
-        fetchActivityByQuery,
+    TResult Function(String? type, int? participants)? fetchActivityByQuery,
     required TResult orElse(),
   }) {
     if (fetchActivityByQuery != null) {
-      return fetchActivityByQuery(type, participants, size);
+      return fetchActivityByQuery(type, participants);
     }
     return orElse();
   }
@@ -333,12 +319,10 @@ class _$FetchActivityByQueryImpl implements _FetchActivityByQuery {
 abstract class _FetchActivityByQuery implements ActivityEvent {
   const factory _FetchActivityByQuery(
       {required final String? type,
-      required final int? participants,
-      required final int? size}) = _$FetchActivityByQueryImpl;
+      required final int? participants}) = _$FetchActivityByQueryImpl;
 
   String? get type;
   int? get participants;
-  int? get size;
   @JsonKey(ignore: true)
   _$$FetchActivityByQueryImplCopyWith<_$FetchActivityByQueryImpl>
       get copyWith => throw _privateConstructorUsedError;

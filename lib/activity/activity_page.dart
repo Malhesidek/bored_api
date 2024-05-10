@@ -1,4 +1,8 @@
+import 'dart:developer';
+
 import 'package:bored_api/activity/bloc/activity_bloc.dart';
+import 'package:bored_api/activity/widgets/activity_card.dart';
+import 'package:bored_api/activity/widgets/activity_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,6 +23,19 @@ class _ActivityPageState extends State<ActivityPage> {
     activityBloc = ActivityBloc();
   }
 
+  String? typePage = null;
+  int? participantsPage = null;
+
+  void changeValue(String value, String type) {
+    setState(() {
+      if (type == 'activity') {
+        typePage = value;
+      } else if (type == 'participants') {
+        participantsPage = int.tryParse(value);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -28,36 +45,61 @@ class _ActivityPageState extends State<ActivityPage> {
       ),
       body: BlocProvider(
         create: (context) => activityBloc,
-        child: Column(
-          children: [
-            TextFormField(),
-            Row(children: [
-              Expanded(child: TextFormField()),
-              Expanded(child: TextFormField())
-            ]),
-            Row(
-              children: [
-                OutlinedButton(
-                    onPressed: () {}, child: Text("Random activity")),
-                IconButton(onPressed: () {}, icon: Icon(Icons.send))
-              ],
-            ),
-            BlocBuilder<ActivityBloc, ActivityState>(
-              builder: (context, state) {
-                return SingleChildScrollView(
-                  child: Column(
-                    children: state.maybeWhen(
-                        success: (activities) => activities.map((activity) {
-                              return SizedBox();
-                            }).toList(),
-                        initial: () => [Text("Select an option")],
-                        loading: () => [CircularProgressIndicator()],
-                        orElse: () => [SizedBox()]),
-                  ),
-                );
-              },
-            )
-          ],
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ActivityTextFormField(
+                  hintText: "Input activity type",
+                  prefixIcon: Icon(Icons.auto_stories),
+                  keyboardType: "text",
+                  onChanged: (value) => changeValue(value, 'activity')),
+              SizedBox(height: 10),
+              ActivityTextFormField(
+                  hintText: "Input number of participants",
+                  prefixIcon: Icon(Icons.person),
+                  keyboardType: "number",
+                  onChanged: (value) => changeValue(value, 'participants')),
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  OutlinedButton(
+                      onPressed: () {
+                        activityBloc.add(ActivityEvent.fetchRandomActivity());
+                      },
+                      child: Text("Random activity")),
+                  IconButton(
+                      onPressed: () {
+                        activityBloc.add(ActivityEvent.fetchActivityByQuery(
+                            type: typePage, participants: participantsPage));
+                      },
+                      icon: Icon(Icons.send))
+                ],
+              ),
+              Divider(),
+              BlocBuilder<ActivityBloc, ActivityState>(
+                builder: (context, state) {
+                  return Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: state.maybeWhen(
+                            success: (activities) => activities.map((activity) {
+                                  return ActivityCard(
+                                    activity: activity,
+                                  );
+                                }).toList(),
+                            initial: () => [Text("Select an option")],
+                            loading: () => [CircularProgressIndicator()],
+                            orElse: () => [SizedBox()]),
+                      ),
+                    ),
+                  );
+                },
+              )
+            ],
+          ),
         ),
       ),
     ));

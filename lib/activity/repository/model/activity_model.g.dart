@@ -13,6 +13,7 @@ _$ActivityModelImpl _$$ActivityModelImplFromJson(Map<String, dynamic> json) =>
       type: json['type'] as String?,
       participants: (json['participants'] as num?)?.toInt(),
       price: (json['price'] as num?)?.toDouble(),
+      link: json['link'] as String?,
       key: json['key'] as String?,
     );
 
@@ -23,5 +24,6 @@ Map<String, dynamic> _$$ActivityModelImplToJson(_$ActivityModelImpl instance) =>
       'type': instance.type,
       'participants': instance.participants,
       'price': instance.price,
+      'link': instance.link,
       'key': instance.key,
     };

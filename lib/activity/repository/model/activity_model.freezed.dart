@@ -25,7 +25,6 @@ mixin _$ActivityModel {
   String? get type => throw _privateConstructorUsedError;
   int? get participants => throw _privateConstructorUsedError;
   double? get price => throw _privateConstructorUsedError;
-  @JsonKey(includeToJson: false, includeFromJson: false)
   String? get link => throw _privateConstructorUsedError;
   String? get key => throw _privateConstructorUsedError;
 
@@ -47,7 +46,7 @@ abstract class $ActivityModelCopyWith<$Res> {
       String? type,
       int? participants,
       double? price,
-      @JsonKey(includeToJson: false, includeFromJson: false) String? link,
+      String? link,
       String? key});
 }
 
@@ -119,7 +118,7 @@ abstract class _$$ActivityModelImplCopyWith<$Res>
       String? type,
       int? participants,
       double? price,
-      @JsonKey(includeToJson: false, includeFromJson: false) String? link,
+      String? link,
       String? key});
 }
 
@@ -184,7 +183,7 @@ class _$ActivityModelImpl implements _ActivityModel {
       this.type,
       this.participants,
       this.price,
-      @JsonKey(includeToJson: false, includeFromJson: false) this.link,
+      this.link,
       required this.key});
 
   factory _$ActivityModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -201,7 +200,6 @@ class _$ActivityModelImpl implements _ActivityModel {
   @override
   final double? price;
   @override
-  @JsonKey(includeToJson: false, includeFromJson: false)
   final String? link;
   @override
   final String? key;
@@ -254,7 +252,7 @@ abstract class _ActivityModel implements ActivityModel {
       final String? type,
       final int? participants,
       final double? price,
-      @JsonKey(includeToJson: false, includeFromJson: false) final String? link,
+      final String? link,
       required final String? key}) = _$ActivityModelImpl;
 
   factory _ActivityModel.fromJson(Map<String, dynamic> json) =
@@ -271,7 +269,6 @@ abstract class _ActivityModel implements ActivityModel {
   @override
   double? get price;
   @override
-  @JsonKey(includeToJson: false, includeFromJson: false)
   String? get link;
   @override
   String? get key;
