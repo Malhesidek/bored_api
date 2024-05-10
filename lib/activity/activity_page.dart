@@ -83,18 +83,24 @@ class _ActivityPageState extends State<ActivityPage> {
                 builder: (context, state) {
                   return Expanded(
                     child: SingleChildScrollView(
-                      child: Column(
-                        children: state.maybeWhen(
-                            success: (activities) => activities.map((activity) {
-                                  return ActivityCard(
-                                    activity: activity,
-                                  );
-                                }).toList(),
-                            initial: () => [Text("Select an option")],
-                            loading: () => [CircularProgressIndicator()],
-                            orElse: () => [SizedBox()]),
+                        child: Column(
+                      children: state.maybeWhen(
+                        success: (activities) {
+                          if (activities.isEmpty) {
+                            return [Text("No activities")];
+                          } else {
+                            return activities.map((activity) {
+                              return ActivityCard(
+                                activity: activity,
+                              );
+                            }).toList();
+                          }
+                        },
+                        initial: () => [Text("Select an option")],
+                        loading: () => [CircularProgressIndicator()],
+                        orElse: () => [SizedBox()],
                       ),
-                    ),
+                    )),
                   );
                 },
               )
