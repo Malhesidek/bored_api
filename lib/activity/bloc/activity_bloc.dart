@@ -37,7 +37,7 @@ class ActivityBloc extends Bloc<ActivityEvent, ActivityState> {
       try {
         final activity = await activityRepository.getActivityByQuery(
             type: event.type, participants: event.participants);
-        if (activities.contains(activity) || activity.activity == null) continue;
+        if (activities.contains(activity) || activity.activity == null || activity.type == 'charity') continue;
         activities.add(activity);
       } on Exception catch (e) {
         log("Error: $e");
