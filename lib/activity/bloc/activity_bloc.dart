@@ -25,7 +25,11 @@ class ActivityBloc extends Bloc<ActivityEvent, ActivityState> {
   _onFetchRandomActivity(
       _FetchRandomActivity event, Emitter<ActivityState> emit) async {
     emit(_Loading());
-    final activity = await activityRepository.getRandomActivity();
+    final List<ActivityModel> activities = [];
+    var activity = await activityRepository.getRandomActivity();
+    while (activity.type == 'charity') {
+      var activity = await activityRepository.getRandomActivity();
+    }
     emit(_Success(activities: [activity]));
   }
 

@@ -4,10 +4,32 @@ import 'package:bored_api/activity/repository/model/activity_model.dart';
 import 'package:bored_api/constants.dart';
 import 'package:flutter/material.dart';
 
-class ActivityCard extends StatelessWidget {
+// class ActivityCard extends StatelessWidget {
+//   const ActivityCard({super.key, required this.activity});
+
+//   final ActivityModel activity;
+
+//   @override
+  
+// }
+
+class ActivityCard extends StatefulWidget {
   const ActivityCard({super.key, required this.activity});
 
   final ActivityModel activity;
+
+  @override
+  State<ActivityCard> createState() => _ActivityCardState();
+}
+
+class _ActivityCardState extends State<ActivityCard> {
+  late int randomImageNumber;
+
+  @override
+  void initState() {
+    super.initState();
+    randomImageNumber = Random().nextInt(4) + 1;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +41,7 @@ class ActivityCard extends StatelessWidget {
       decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage(
-                  "assets/images/${activity.type}-${Random().nextInt(4) + 1}.jpg"),
+                  "assets/images/${widget.activity.type}-${randomImageNumber}.jpg"),
               fit: BoxFit.cover,
               opacity: 0.7),
           // border: Border.all(color: Colors.black),
@@ -28,7 +50,7 @@ class ActivityCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Text(
-            "${activity.activity}",
+            "${widget.activity.activity}",
             textAlign: TextAlign.start,
             style: TextFonts.textStyleJakarta_24.copyWith(
                 color: Colors.white,
@@ -50,7 +72,7 @@ class ActivityCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Type: ${activity.type}",
+                "Type: ${widget.activity.type}",
                 style: TextFonts.textStyleComfortaa_14
                     .copyWith(color: Colors.white, shadows: [
                   Shadow(
@@ -60,7 +82,7 @@ class ActivityCard extends StatelessWidget {
                   )
                 ]),
               ),
-              Text("Participants: ${activity.participants}",
+              Text("Participants: ${widget.activity.participants}",
                   style: TextFonts.textStyleComfortaa_14
                       .copyWith(color: Colors.white, shadows: [
                     Shadow(
